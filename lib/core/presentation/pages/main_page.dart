@@ -49,6 +49,8 @@ class _MainPageState extends State<MainPage> {
       return 0;
     } else if (location.startsWith(searchPath)) {
       return 1;
+    } else if (location.startsWith(wishListPath)) {
+      return 2;
     }
 
     return 0;
@@ -61,6 +63,9 @@ class _MainPageState extends State<MainPage> {
         break;
       case 1:
         context.goNamed(AppRoutes.searchRoute);
+        break;
+      case 2:
+        context.goNamed(AppRoutes.wishListRoute);
         break;
 
       default:

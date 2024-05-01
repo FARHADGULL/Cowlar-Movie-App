@@ -12,6 +12,8 @@ class AppRoutes {
   //scrn 3
   static const String searchRoute = 'search';
 
+  static const String wishListRoute = 'wishList';
+
   static const String twoScreen = '/two_screen';
 
   static const String fourScreen = '/four_screen';

@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:movieapp/core/errors/error_screen.dart';
 import 'package:movieapp/core/services/service_locator.dart';
 import 'package:movieapp/core/utils/enums.dart';
+import 'package:movieapp/model/hive_movie_model.dart';
 import 'package:movieapp/presentation/movie_details/models/movie_detail_model.dart';
 import 'package:movieapp/presentation/movie_details/models/video_model.dart';
 import 'package:movieapp/presentation/movie_details/widgets/bloc/video_player_bloc.dart';
@@ -249,10 +251,56 @@ class MovieDetailScreen extends StatelessWidget {
                   },
                 );
               },
-            )
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 11.v, bottom: 10.v),
+              child: CustomElevatedButton(
+                buttonStyle: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(AppColors.primary),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.h),
+                    ),
+                  ),
+                ),
+                text: "Add to WishList",
+                onPressed: () {
+                  HiveMovieModel movie = HiveMovieModel(
+                    title: model?.title ?? "",
+                    overview: model?.overview ?? "",
+                    poster: model?.posterUrl ?? "",
+                    id: model?.id ?? 0,
+                    backDrop: model?.backdropUrl ?? "",
+                  );
+                  Hive.box<HiveMovieModel>('movie_lists').add(movie);
+                  _showDialog(context);
+                },
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.primary,
+          title: Text("Wishlist Added"),
+          content: Text("Movie added to wishlist"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 

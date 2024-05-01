@@ -9,10 +9,12 @@ import 'package:movieapp/presentation/mqtt/mqtt_screen.dart';
 import 'package:movieapp/presentation/ticket_detials/ticket_details_screen.dart';
 
 import '../../presentation/search/search_screen.dart';
+import '../../presentation/wishlist/wishlist.dart';
 
 const String homePath = "/home";
 const String movieDetailPath = "movieDetails/:movieId";
 const String searchPath = "search";
+const String wishListPath = "wishList";
 
 const String seatBookingPath = "seatBook";
 const String seatBookingDetailsPath = "seatBookingDetails";
@@ -44,6 +46,11 @@ class AppRouter {
                 name: AppRoutes.searchRoute,
                 path: searchPath,
                 pageBuilder: (_, state) => CupertinoPage(child: SeachScreen()),
+              ),
+              GoRoute(
+                name: AppRoutes.wishListRoute,
+                path: wishListPath,
+                pageBuilder: (_, state) => CupertinoPage(child: WishList()),
               ),
               GoRoute(
                 name: AppRoutes.seatBookingRoute,
